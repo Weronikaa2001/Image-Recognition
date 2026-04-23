@@ -1,0 +1,4 @@
+  File "/home/ydmar/project/Image-Recognition/Trash_classification.py", line 326
+    for fold, (train_idx, val_idx) in enumerate(skf.split...):
+                                                ^^^^^^^^^^^^
+SyntaxError: invalid syntax. Perhaps you forgot a comma?
