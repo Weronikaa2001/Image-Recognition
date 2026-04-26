@@ -216,69 +216,6 @@ print(f"\nThe best model was Fold {best_fold} with {best_overall_accuracy * 100:
 print("It has been saved to the folder: './best_garbage_classifier'")
 
 
-# In[ ]:
-
-
-plt.figure(figsize=(16, 6))
-ax1 = plt.subplot(1, 2, 1)
-ax2 = plt.subplot(1, 2, 2)
-
-folds = 5
-colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd']
-
-for i in range(1, folds + 1):
-    fold_dir = f"./garbage_model_fold_{i}"
-
-    if not os.path.exists(fold_dir):
-        print(f"Could not find folder: {fold_dir}")
-        continue
-
-    # logs inside 'checkpoint-XXX' folders
-    checkpoints = [d for d in os.listdir(fold_dir) if d.startswith("checkpoint")]
-    if not checkpoints:
-        print(f"No checkpoints found in {fold_dir}")
-        continue
-
-    checkpoints.sort(key=lambda x: int(x.split("-")[1]))
-    latest_checkpoint = checkpoints[-1]
-
-    state_path = os.path.join(fold_dir, latest_checkpoint, "trainer_state.json")
-
-    if os.path.exists(state_path):
-        with open(state_path, "r") as f:
-            state = json.load(f)
-
-        log_history = state["log_history"]
-
-        # Loss for every 10 steps (logging_steps=10)
-        train_steps = [log["step"] for log in log_history if "loss" in log]
-        train_loss = [log["loss"] for log in log_history if "loss" in log]
-
-        # Accuracy per each epoch
-        eval_epochs = [log["epoch"] for log in log_history if "eval_accuracy" in log]
-        eval_acc = [log["eval_accuracy"] * 100 for log in log_history if "eval_accuracy" in log] 
-
-        ax1.plot(train_steps, train_loss, color=colors[i-1], alpha=0.8, label=f"Fold {i}")
-        ax2.plot(eval_epochs, eval_acc, color=colors[i-1], marker='o', linewidth=2, label=f"Fold {i}")
-
-# Training Loss
-ax1.set_title("1. Training Loss", fontsize=14, fontweight='bold')
-ax1.set_xlabel("Training Steps", fontsize=12)
-ax1.set_ylabel("Loss (Error Rate)", fontsize=12)
-ax1.grid(True, linestyle='--', alpha=0.6)
-ax1.legend()
-
-# Validation Accuracy 
-ax2.set_title("2. Validation Accuracy", fontsize=14, fontweight='bold')
-ax2.set_xlabel("Epochs", fontsize=12)
-ax2.set_ylabel("Accuracy (%)", fontsize=12)
-ax2.grid(True, linestyle='--', alpha=0.6)
-ax2.legend()
-
-plt.tight_layout()
-plt.show()
-
-
 # In[18]:
 
 
@@ -320,39 +257,6 @@ print(f"Final test vault accuracy: {final_accuracy:.2f}%")
 
 # ## Setup and training for the higher image resolution (448x448)
 
-# In[ ]:
-
-
-for fold, (train_idx, val_idx) in enumerate(skf.split...):
-    # ... (Keep your data splitting code the same) ...
-
-    training_args = TrainingArguments(
-        output_dir=f"./garbage_model_448_fold_{fold + 1}", # NEW FOLDER NAME
-        remove_unused_columns=False, 
-        eval_strategy="epoch", 
-        save_strategy="epoch", 
-        learning_rate=5e-5,
-        per_device_train_batch_size=8, 
-        gradient_accumulation_steps=4,  
-        per_device_eval_batch_size=8,   
-        num_train_epochs=5,             
-        warmup_ratio=0.1, 
-        logging_steps=10, 
-        load_best_model_at_end=True,
-        metric_for_best_model="accuracy"
-    )
-
-    # ... (Keep your Trainer and Evaluation code the same) ...
-
-    # Update the save location!
-    if fold_acc > best_overall_accuracy:
-        print(f"New best 448px model found! Saving...")
-        best_overall_accuracy = fold_acc
-        best_fold = fold + 1
-
-        # SAVE TO A NEW FOLDER
-        trainer.save_model("./model_448px_experiment")
-        image_processor.save_pretrained("./model_448px_experiment")
 
 
 # In[23]:
