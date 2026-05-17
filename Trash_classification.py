@@ -50,7 +50,7 @@ import json
 
 
 # data_dir = r"C:\Users\ydmar\.cache\huggingface\hub\datasets--viola77data--recycling-dataset\snapshots\e2e03c91c385e8d1a758389cdb20cf9c024f6cbf"
-data_dir = r".\trash_images" 
+data_dir = "./trash_images"
 dataset = load_dataset("imagefolder", data_dir=data_dir)
 data = dataset["train"]
 split_data = data.train_test_split(test_size=0.15, stratify_by_column="label", seed=42)
@@ -392,7 +392,6 @@ print("It has been saved to the folder: './model_448px_experiment'")
 # 
 
 # In[ ]:
-
 
 
 
