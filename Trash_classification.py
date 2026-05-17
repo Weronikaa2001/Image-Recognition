@@ -361,37 +361,4 @@ print(f"\nThe best model was Fold {best_fold} with {best_overall_accuracy * 100:
 print("It has been saved to the folder: './model_448px_experiment'")
 
 
-# In[ ]:
-
-
-# Fixing how to read the data (beginning of the document)
-# Correlation matrix of OOF predictions
-# Other related eda
-# applying on the test dataset 
-# test on other random images
-
-
-# In[ ]:
-
-
-# WHat else we can do? 
-# 1) Test with real examples of the garbage (test our model, good example plastic and glass and current recycling initiatives in Poland)
-# 2) Try a different pretrained model (ResNet, ViT, or attached below huggingface model by link) and compare results
-# https://huggingface.co/prithivMLmods/Trash-Net\
-# Execute the following model as a comparison with our trained model 
-
-
-# Resources: <br>
-# 1. Materials from "Image Recognition" lab classes by...
-# 2. https://huggingface.co/transformers/v3.0.2/model_doc/auto.html <br>
-# 3. https://huggingface.co/docs/transformers/model_doc/auto <br>
-# 4. https://huggingface.co/datasets/viola77data/recycling-dataset <br>
-# 5. https://huggingface.co/google/efficientnet-b0 <br>
-# 6. https://github.com/tensorflow/tpu/blob/master/models/official/efficientnet/README.md <br>
-# 7. https://huggingface.co/docs/transformers/main_classes/trainer
-# 
-
-# In[ ]:
-
-
 
