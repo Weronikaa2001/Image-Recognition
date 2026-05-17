@@ -203,5 +203,6 @@ Potential future improvements include:
 
 ## Authors
 
-**Weronika Mądro**
-**Yuliya Martyniuk**
+- **Yuliya Martyniuk**
+- **Weronika Mądro**
+
